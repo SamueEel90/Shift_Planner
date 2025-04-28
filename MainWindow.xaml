@@ -1,12 +1,40 @@
 ﻿<Window x:Class="Shift_Planner.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Shift_Planner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+       Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <ComboBox ItemsSource="{Binding Users}"
+                 SelectionChanged="FetchShiftsForUser"
+                 DisplayMemberPath="Name"
+                 HorizontalAlignment="Left"
+                 Margin="20,24,0,0"
+                 VerticalAlignment="Top"
+                 Width="220"
+                 Height="40" />
 
+        <DataGrid HorizontalAlignment="Left"
+                 Height="340"
+                 Margin="20,84,0,0"
+                 VerticalAlignment="Top"
+                 Width="445"
+                 AutoGenerateColumns="False"
+                 ItemsSource="{Binding Shifts}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Binding="{Binding ShiftDate, StringFormat=dd-MM}" Width="120" />
+                <DataGridTextColumn Header="Pozicia" Binding="{Binding Position}" Width="120" />
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="120" />
+                <DataGridTextColumn Header="Zaciatok" Binding="{Binding ShiftStart}" Width="120" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox ItemsSource="{Binding Shifts}"
+
+                  HorizontalAlignment="Left"
+                  Margin="260,24,0,0"
+                  VerticalAlignment="Top"
+                  Width="260"
+                  Height="37" />
     </Grid>
 </Window>
