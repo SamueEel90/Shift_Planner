@@ -14,8 +14,8 @@ namespace Shift_Planner.Models
 
         public string? Username { get; set; }
         public DateTime ShiftDate { get; set; }
-        public DateTime ShiftStart { get; set; }
-        public DateTime ShiftEnd { get; set; }
+        public DateTime ?ShiftStart { get; set; }
+        public DateTime ?ShiftEnd { get; set; }
         public string? Position { get; set; }
         public bool ArrivalConfirmed { get; set; }
         public bool DepartureConfirmed { get; set; }

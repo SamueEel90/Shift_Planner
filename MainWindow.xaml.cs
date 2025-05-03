@@ -13,13 +13,23 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        WindowState = WindowState.Maximized;
         InitializeComponent();
         DataContext = this;
         FetchShifts();
+        for (int hour = 6; hour <= 22; hour++)
+        {
+            AvailableTimes.Add($"{hour:00}:00");
+        }
+        AvailableTimes.Add("Dovolenka");
     }
 
     public ObservableCollection<Shift> Shifts { get; set; } = new ObservableCollection<Shift>();
     public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
+
+    public ObservableCollection<string> AvailableTimes { get; set; } = new ObservableCollection<string>();
+
+ 
 
     private void FetchShifts()
     {
@@ -35,7 +45,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private List<Shift> GetMonthlyShiftsForUser(string userId, int year, int month, List<Shift> allShifts)
+    private List<Shift> GetMonthlyShiftsForUser(string userId, int year, int month,  List<Shift> allShifts)
     {
         var shiftsForUser = allShifts
             .Where(shift => shift.UserId == userId && shift.ShiftDate.Year == year && shift.ShiftDate.Month == month)
@@ -60,8 +70,10 @@ public partial class MainWindow : Window
                 {
                     UserId = userId,
                     ShiftDate = date,
+                    ShiftStart = null,
+                    ShiftEnd = null,
                     Username = "",
-                    Position = "",
+                    Position = "PPO",
                     ArrivalConfirmed = false,
                     DepartureConfirmed = false
                 });
@@ -82,7 +94,7 @@ public partial class MainWindow : Window
                 .ToList();
 
             int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
+            int month = 4;
 
             var fullMonthShifts = GetMonthlyShiftsForUser(selectedUser.Id, year, month, shifts);
 
@@ -92,5 +104,10 @@ public partial class MainWindow : Window
                 Shifts.Add(shift);
             }
         }
+    }
+
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
     }
 }
