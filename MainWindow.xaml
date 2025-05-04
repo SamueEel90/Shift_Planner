@@ -5,25 +5,47 @@
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
        Title="MainWindow" Height="1080" Width="1920">
-    <Grid>
-        <ComboBox ItemsSource="{Binding Users}"
+    <Grid x:Name="mainDataGrid">
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+        </Grid.Background>
+        <ComboBox x:Name="NameComboBox" ItemsSource="{Binding Users}"
                  SelectionChanged="FetchShiftsForUser"
                  DisplayMemberPath="Name"
                  HorizontalAlignment="Left"
                  Margin="720,9,0,0"
                  VerticalAlignment="Top"
                  Width="220"
-                 Height="55" />
+                 Height="55" 
+                 Foreground="DarkSlateGray"
+                 Background="Beige"
+                 FontSize="28
+                  "/>
 
-        <DataGrid HorizontalAlignment="Center"
+        <DataGrid HorizontalAlignment="Left"
                  Height="880"
-                 Margin="0,144,0,0"
+                 Margin="550,144,0,0"
                  VerticalAlignment="Top"
-                 Width="1280"
+                 Width="860"
                  AutoGenerateColumns="False"
                  ItemsSource="{Binding Shifts}"
                  FontSize="24"
-                  >
+                 Background="#FF94C8DA" 
+                
+                 
+                
+                 >
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FF94C8DA"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="28"/>
+                    <Setter Property="BorderBrush" Value="#FF94C8DA"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="Padding" Value="10,5"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum" Binding="{Binding ShiftDate, StringFormat=dd-MM}" Width="200" CanUserResize="False">
@@ -31,6 +53,8 @@
                         <Style TargetType="TextBlock">
                             <Setter Property="TextBlock.TextAlignment" Value="Center" />
                             <Setter Property="TextBlock.FontSize" Value="24" />
+                            
+
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -45,6 +69,7 @@
 
                 <DataGridTemplateColumn Header="Zaciatok" Width="220">
                     <DataGridTemplateColumn.CellTemplate>
+
                         <DataTemplate>
                             <TextBlock Text="{Binding ShiftStart, StringFormat=hh\\:mm}" TextAlignment="Center"/>
                         </DataTemplate>
@@ -74,22 +99,26 @@
                 </DataGridTemplateColumn>
 
 
-                
+
             </DataGrid.Columns>
         </DataGrid>
 
-        <ComboBox ItemsSource="{Binding Shifts}"
+        <ComboBox x:Name="MonthComboBox" ItemsSource="{Binding Months.Keys}"
+                    SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
                  HorizontalAlignment="Left"
                  Margin="980,9,0,0"
                  VerticalAlignment="Top"
                  Width="220"
-                 Height="55" SelectionChanged="ComboBox_SelectionChanged" />
-        <Label Content="Celkové Hodiny" HorizontalAlignment="Left" Margin="1640,207,0,0" VerticalAlignment="Top" Width="95" FontSize="24"/>
-        <Label Content="Mesacný Fond" HorizontalAlignment="Left" Margin="1640,264,0,0" VerticalAlignment="Top" Width="185" FontSize="24"/>
-        <Label Content="Nadčas" HorizontalAlignment="Left" Margin="1640,322,0,0" VerticalAlignment="Top" Width="95" FontSize="24"/>
-        <Label Content="Dovolenka" HorizontalAlignment="Left" Margin="1640,389,0,0" VerticalAlignment="Top" Width="150" FontSize="24"/>
-        <Label Content="Ocr" HorizontalAlignment="Left" Margin="1645,444,0,0" VerticalAlignment="Top" Width="165" Height="40" FontSize="24"/>
-        <Button Content="Ulozit zmeny" HorizontalAlignment="Left" Height="45" Margin="475,84,0,0" VerticalAlignment="Top" Width="200" FontSize="24"/>
+                 Height="55" SelectionChanged="MonthComboBox_SelectionChanged"
+                 Foreground="DarkSlateGray"
+                 Background="Beige"
+                  FontSize="32"/>
+        <Label Content="Celkové Hodiny" HorizontalAlignment="Left" Margin="1440,184,0,0" VerticalAlignment="Top" Width="95" FontSize="24"/>
+        <Label Content="Mesacný Fond" HorizontalAlignment="Left" Margin="1440,264,0,0" VerticalAlignment="Top" Width="185" FontSize="24"/>
+        <Label Content="Nadčas" HorizontalAlignment="Left" Margin="1440,344,0,0" VerticalAlignment="Top" Width="95" FontSize="24"/>
+        <Label Content="Dovolenka" HorizontalAlignment="Left" Margin="1440,417,0,0" VerticalAlignment="Top" Width="150" FontSize="24"/>
+        <Label Content="Ocr" HorizontalAlignment="Left" Margin="1440,504,0,0" VerticalAlignment="Top" Width="165" Height="40" FontSize="24"/>
+        <Button Content="Ulozit zmeny" Click="SubmitShiftsClick" HorizontalAlignment="Left" Height="45" Margin="475,84,0,0" VerticalAlignment="Top" Width="200" FontSize="24"/>
         <Button Content="Vymazat" HorizontalAlignment="Left" Height="45" Margin="720,84,0,0" VerticalAlignment="Top" Width="200" FontSize="24"/>
         <Button Content="Vymazat Vsetko" HorizontalAlignment="Left" Height="45" Margin="1000,84,0,0" VerticalAlignment="Top" Width="230" FontSize="24"/>
         <Button Content="Dovolenka" HorizontalAlignment="Left" Height="45" Margin="1280,84,0,0" VerticalAlignment="Top" Width="165" FontSize="24"/>
